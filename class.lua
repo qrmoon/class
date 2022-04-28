@@ -1,4 +1,7 @@
-local Class = { name="Class" }
+local Class = {
+  __name="Class",
+  _isclass = true
+}
 Class.mt = {}
 setmetatable(Class, Class.mt)
 
@@ -30,7 +33,10 @@ function Class.mt:__index(k)
 end
 
 function Class.mt:__tostring()
-  return self.__name
+  if self._isclass then
+    return self.__name
+  end
+  return ("%s: %p"):format(self.__name, self)
 end
 
 function Class:abstract(...)
